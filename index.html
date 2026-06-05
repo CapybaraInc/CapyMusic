@@ -10,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: linear-gradient(180deg, #0d1117 0%, #161b22 40%, #1a3a2a 100%);
             min-height: 100vh;
@@ -21,8 +20,6 @@
             overflow: hidden;
             user-select: none;
         }
-
-        /* Звёзды */
         .stars {
             position: fixed;
             top: 0;
@@ -49,8 +46,6 @@
                 opacity: 0.9;
             }
         }
-
-        /* Луна */
         .moon {
             position: fixed;
             top: 25px;
@@ -62,8 +57,6 @@
             box-shadow: 0 0 40px rgba(255, 230, 150, 0.5);
             z-index: 0;
         }
-
-        /* Лого */
         .logo {
             position: fixed;
             top: 22px;
@@ -79,8 +72,6 @@
             color: #F4D068;
             font-weight: 700;
         }
-
-        /* Счётчик песен */
         .song-counter {
             position: fixed;
             top: 22px;
@@ -93,33 +84,40 @@
         .song-counter b {
             color: #F4D068;
         }
-
-        /* Главный контейнер */
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 18px;
+            gap: 20px;
             z-index: 1;
             position: relative;
         }
-
-        /* Сцена */
         .stage {
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             position: relative;
-            min-height: 170px;
+            min-height: 240px;
         }
-
-        /* Маленькие капибары */
         .side-capy {
-            font-size: 42px;
+            font-size: 40px;
             position: relative;
-            transition: all 0.4s;
+            align-self: flex-end;
+            margin-bottom: 50px;
+        }
+        .side-capy .side-sombrero {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 26px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .side-capy.show-sombrero .side-sombrero {
+            opacity: 1;
         }
         .side-capy.chill {
             animation: sideChill 2s ease-in-out infinite;
@@ -129,32 +127,19 @@
         }
         .side-capy.sleep {
             animation: sideSleep 3s ease-in-out infinite;
-            opacity: 0.7;
-        }
-        .side-capy .sombrero {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 25px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .side-capy.show-sombrero .sombrero {
-            opacity: 1;
+            opacity: 0.6;
         }
         .side-capy .zzz {
             position: absolute;
-            top: -20px;
-            right: -5px;
-            font-size: 16px;
+            top: -18px;
+            right: -8px;
+            font-size: 14px;
             opacity: 0;
-            animation: floatZ 2s ease-out infinite;
         }
         .side-capy.sleep .zzz {
             opacity: 1;
+            animation: floatZ 2s ease-out infinite;
         }
-
         @keyframes floatZ {
             0% {
                 transform: translateY(0);
@@ -171,7 +156,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-5px);
+                transform: translateY(-4px);
             }
         }
         @keyframes sideDance {
@@ -180,65 +165,92 @@
                 transform: translateY(0) rotate(0deg);
             }
             20% {
-                transform: translateY(-12px) rotate(-5deg);
+                transform: translateY(-10px) rotate(-5deg);
             }
             40% {
-                transform: translateY(-3px) rotate(3deg);
+                transform: translateY(-2px) rotate(3deg);
             }
             60% {
-                transform: translateY(-9px) rotate(-2deg);
+                transform: translateY(-8px) rotate(-2deg);
             }
             80% {
-                transform: translateY(-14px) rotate(4deg);
+                transform: translateY(-12px) rotate(4deg);
             }
         }
         @keyframes sideSleep {
             0%,
             100% {
-                transform: translateY(0) scale(1);
+                transform: translateY(0);
             }
             50% {
-                transform: translateY(-2px) scale(1.02);
+                transform: translateY(-2px);
             }
         }
-
-        /* Главная капибара */
         .main-capy-wrapper {
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .main-capy-container {
+        .main-capy-stack {
             position: relative;
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .main-capy {
-            font-size: 100px;
-            position: relative;
-            z-index: 2;
-            transition: all 0.4s;
-        }
-        .main-capy.chill {
-            animation: mainChill 2.5s ease-in-out infinite;
-        }
-        .main-capy.dance {
-            animation: mainDance 0.35s ease-in-out infinite;
-        }
-        .main-capy.sleep {
-            animation: mainSleep 3.5s ease-in-out infinite;
-            filter: brightness(0.7);
-        }
-
-        /* Язык высунут (спящий режим) */
-        .tongue {
+        .hair-layer {
             position: absolute;
-            bottom: 8px;
+            top: -42px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 22px;
             z-index: 5;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        .hair-layer.visible {
+            opacity: 1;
+        }
+        .sombrero-layer {
+            position: absolute;
+            top: -58px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .sombrero-layer.visible {
+            opacity: 1;
+        }
+        .main-capy-emoji {
+            font-size: 100px;
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s;
+        }
+        .main-capy-emoji.chill {
+            animation: mainChill 2.5s ease-in-out infinite;
+        }
+        .main-capy-emoji.dance {
+            animation: mainDance 0.35s ease-in-out infinite;
+        }
+        .main-capy-emoji.sleep {
+            animation: mainSleep 3.5s ease-in-out infinite;
+            filter: brightness(0.6);
+        }
+        .tongue-out {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            z-index: 2;
             opacity: 0;
             transition: opacity 0.5s;
         }
-        .tongue.visible {
+        .tongue-out.visible {
             opacity: 1;
             animation: tongueWiggle 2s ease-in-out infinite;
         }
@@ -248,63 +260,24 @@
                 transform: translateX(-50%) translateY(0);
             }
             30% {
-                transform: translateX(-50%) translateY(2px);
+                transform: translateX(-50%) translateY(3px);
             }
             60% {
                 transform: translateX(-50%) translateY(-1px);
             }
         }
-
-        /* Волосы */
-        .hair-svg {
+        .dog-sleep {
             position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-            opacity: 0;
-            transition: opacity 0.4s;
-            pointer-events: none;
-        }
-        .hair-svg.visible {
-            opacity: 1;
-        }
-
-        /* Сомбреро */
-        .main-sombrero {
-            position: absolute;
-            top: -55px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 50px;
-            z-index: 4;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .main-sombrero.visible {
-            opacity: 1;
-        }
-
-        /* Собака */
-        .dog {
-            position: absolute;
-            bottom: 5px;
-            right: -30px;
-            font-size: 35px;
-            z-index: 1;
+            bottom: 0;
+            right: -35px;
+            font-size: 32px;
+            z-index: 0;
             opacity: 0;
             transition: opacity 0.5s;
         }
-        .dog.visible {
-            opacity: 0.8;
+        .dog-sleep.visible {
+            opacity: 0.7;
             animation: dogSleep 4s ease-in-out infinite;
-        }
-        .dog .dog-tongue {
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
         }
         @keyframes dogSleep {
             0%,
@@ -315,20 +288,18 @@
                 transform: translateY(-2px);
             }
         }
-
-        /* Чат-пузырь */
         .thought-bubble {
             position: absolute;
-            top: -50px;
+            top: -75px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 18px;
+            padding: 7px 14px;
             color: rgba(255, 255, 255, 0.8);
-            font-size: 13px;
-            z-index: 6;
+            font-size: 12px;
+            z-index: 7;
             opacity: 0;
             transition: opacity 0.5s;
             backdrop-filter: blur(5px);
@@ -337,29 +308,104 @@
         .thought-bubble.visible {
             opacity: 1;
         }
-        .thought-bubble::after {
-            content: '';
+        /* Аксессуары */
+        .accessory-layer {
             position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%) rotate(45deg);
-            width: 10px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.08);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            font-size: 30px;
         }
-
+        .accessory-layer.visible {
+            opacity: 1;
+        }
+        .acc-crown {
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+        }
+        .acc-guitar {
+            bottom: 10px;
+            left: -20px;
+        }
+        .acc-glasses {
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+        }
+        .acc-gloves {
+            bottom: 20px;
+            left: -25px;
+            right: -25px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 25px;
+        }
+        .acc-cucumber {
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 35px;
+        }
+        .acc-carrot {
+            top: 40px;
+            right: -15px;
+            font-size: 28px;
+        }
+        .acc-lavash {
+            bottom: 15px;
+            left: -25px;
+            font-size: 30px;
+        }
+        .acc-meat {
+            bottom: 15px;
+            right: -25px;
+            font-size: 30px;
+        }
+        .acc-fish {
+            top: 30px;
+            right: -20px;
+            font-size: 28px;
+            animation: fishSwim 2s ease-in-out infinite;
+        }
+        .acc-droplet {
+            top: 0;
+            left: -20px;
+            font-size: 24px;
+            animation: dropletFall 1.5s ease-in infinite;
+        }
+        @keyframes fishSwim {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(8px);
+            }
+        }
+        @keyframes dropletFall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+        }
         @keyframes mainChill {
             0%,
             100% {
                 transform: translateY(0) scale(1);
             }
             30% {
-                transform: translateY(-4px) scale(1.02);
+                transform: translateY(-3px) scale(1.02);
             }
             60% {
-                transform: translateY(-2px) scale(1.01);
+                transform: translateY(-1px) scale(1.01);
             }
         }
         @keyframes mainDance {
@@ -368,22 +414,22 @@
                 transform: translateY(0) rotate(0deg) scale(1);
             }
             15% {
-                transform: translateY(-16px) rotate(-4deg) scale(1.06);
+                transform: translateY(-14px) rotate(-4deg) scale(1.06);
             }
             30% {
-                transform: translateY(-4px) rotate(2deg) scale(0.97);
+                transform: translateY(-3px) rotate(2deg) scale(0.97);
             }
             45% {
-                transform: translateY(-10px) rotate(-3deg) scale(1.04);
+                transform: translateY(-9px) rotate(-3deg) scale(1.04);
             }
             60% {
-                transform: translateY(-18px) rotate(5deg) scale(1.08);
+                transform: translateY(-16px) rotate(5deg) scale(1.08);
             }
             75% {
-                transform: translateY(-6px) rotate(-1deg) scale(1.01);
+                transform: translateY(-5px) rotate(-1deg) scale(1.01);
             }
             90% {
-                transform: translateY(-13px) rotate(3deg) scale(1.05);
+                transform: translateY(-12px) rotate(3deg) scale(1.05);
             }
         }
         @keyframes mainSleep {
@@ -398,8 +444,14 @@
                 transform: translateY(-1px) scale(1.01);
             }
         }
-
-        /* Эквалайзер */
+        .yandex-frame-wrap {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
         .equalizer {
             display: flex;
             gap: 3px;
@@ -419,19 +471,19 @@
         }
         .eq-bar:nth-child(1) {
             animation-delay: 0s;
-            height: 12px;
+            height: 10px;
         }
         .eq-bar:nth-child(2) {
             animation-delay: 0.15s;
-            height: 18px;
+            height: 16px;
         }
         .eq-bar:nth-child(3) {
             animation-delay: 0.3s;
-            height: 10px;
+            height: 9px;
         }
         .eq-bar:nth-child(4) {
             animation-delay: 0.45s;
-            height: 16px;
+            height: 14px;
         }
         @keyframes eqJump {
             0%,
@@ -442,8 +494,6 @@
                 transform: scaleY(1);
             }
         }
-
-        /* Карточка трека */
         .track-info {
             text-align: center;
             color: white;
@@ -468,21 +518,57 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        .badge-female {
-            background: rgba(244, 208, 104, 0.15);
-            color: #F4D068;
-            border: 1px solid rgba(244, 208, 104, 0.25);
-        }
-        .badge-male {
-            background: rgba(100, 180, 255, 0.15);
-            color: #64b4ff;
-            border: 1px solid rgba(100, 180, 255, 0.25);
-        }
         .badge-macarena {
             background: rgba(255, 100, 100, 0.15);
             color: #ff6464;
             border: 1px solid rgba(255, 100, 100, 0.25);
             animation: pulse 1s infinite;
+        }
+        .badge-queen {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+        }
+        .badge-rock {
+            background: rgba(255, 69, 0, 0.15);
+            color: #ff4500;
+            border: 1px solid rgba(255, 69, 0, 0.25);
+        }
+        .badge-boxer {
+            background: rgba(255, 255, 0, 0.15);
+            color: #ffff00;
+            border: 1px solid rgba(255, 255, 0, 0.25);
+        }
+        .badge-metal {
+            background: rgba(180, 0, 0, 0.15);
+            color: #ff4444;
+            border: 1px solid rgba(180, 0, 0, 0.25);
+        }
+        .badge-chill {
+            background: rgba(100, 200, 255, 0.15);
+            color: #64c8ff;
+            border: 1px solid rgba(100, 200, 255, 0.25);
+        }
+        .badge-water {
+            background: rgba(0, 150, 255, 0.15);
+            color: #0096ff;
+            border: 1px solid rgba(0, 150, 255, 0.25);
+        }
+        .badge-cucumber {
+            background: rgba(0, 255, 0, 0.15);
+            color: #00ff00;
+            border: 1px solid rgba(0, 255, 0, 0.25);
+        }
+        .badge-lavash {
+            background: rgba(210, 180, 140, 0.15);
+            color: #d2b48c;
+            border: 1px solid rgba(210, 180, 140, 0.25);
+        }
+        .badge-rickroll {
+            background: rgba(255, 0, 255, 0.15);
+            color: #ff00ff;
+            border: 1px solid rgba(255, 0, 255, 0.25);
+            animation: pulse 0.5s infinite;
         }
         .badge-break {
             background: rgba(100, 220, 180, 0.15);
@@ -498,8 +584,6 @@
                 opacity: 0.4;
             }
         }
-
-        /* Кнопки */
         .controls {
             display: flex;
             gap: 10px;
@@ -546,14 +630,11 @@
             background: rgba(100, 220, 180, 0.18);
             border-color: rgba(100, 220, 180, 0.35);
         }
-
-        /* Прогресс */
         .progress-container {
             width: 260px;
             height: 3px;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 8px;
-            cursor: pointer;
         }
         .progress-bar {
             height: 100%;
@@ -573,567 +654,343 @@
             font-size: 10px;
             margin-top: 3px;
         }
-
         .hidden {
             display: none;
-        }
-
-        /* Вода */
-        .water-overlay {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: linear-gradient(to top, rgba(30, 80, 60, 0.25), transparent);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.8s;
-        }
-        .water-overlay.visible {
-            opacity: 1;
         }
     </style>
 </head>
 <body>
-
-    <!-- Луна -->
     <div class="moon"></div>
-
-    <!-- Вода -->
-    <div class="water-overlay" id="waterOverlay"></div>
-
-    <!-- Лого -->
     <div class="logo">🦫 <span>CapyMusic</span> Radio</div>
     <div class="song-counter">🎵 <b id="songCount">0</b> / 5</div>
-
-    <!-- Звёзды -->
     <div class="stars" id="stars"></div>
-
-    <!-- Контейнер -->
     <div class="container">
-        <!-- Сцена -->
         <div class="stage">
-            <!-- Левая -->
             <div class="side-capy chill" id="sideCapyLeft">
-                <div class="sombrero">🪅</div>
-                <div class="zzz">💤</div>
-                🦫
+                <div class="side-sombrero">🪅</div><div class="zzz">💤</div>🦫
             </div>
-
-            <!-- Главная -->
             <div class="main-capy-wrapper">
-                <div class="main-capy-container" id="mainCapyContainer">
+                <div class="main-capy-stack" id="mainCapyStack">
                     <div class="thought-bubble" id="thoughtBubble"></div>
-                    <div class="hair-svg" id="hairSvg">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="115" height="115">
+                    <!-- Сомбреро -->
+                    <div class="sombrero-layer" id="sombreroLayer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="90" height="90">
+                            <ellipse cx="50" cy="55" rx="28" ry="6" fill="#E5A93C"/>
+                            <path d="M 38 53 Q 50 25 62 53 Z" fill="#E5A93C"/>
+                            <path d="M 40 50 Q 50 35 60 50" stroke="#D9381E" stroke-width="2.5" fill="none"/>
+                            <path d="M 41.5 52 Q 50 38 58.5 52" stroke="#228B22" stroke-width="1.8" fill="none"/>
+                        </svg>
+                    </div>
+                    <!-- Волосы -->
+                    <div class="hair-layer" id="hairLayer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="110" height="110">
                             <path d="M18,40 C12,60 15,85 20,98 C24,98 28,92 28,82 C28,62 30,52 30,42 Z" fill="#D4A316"/>
                             <path d="M82,40 C88,60 85,85 80,98 C76,98 72,92 72,82 C72,62 70,52 70,42 Z" fill="#D4A316"/>
                             <path d="M50,14 C30,14 23,24 23,45 C23,65 19,82 24,92 C27,92 30,87 30,72 C30,52 34,32 50,32 C66,32 70,52 70,72 C70,87 73,92 76,92 C81,82 77,65 77,45 C77,25 70,14 50,14 Z" fill="#F4D068"/>
                             <path d="M50,17 C36,17 29,22 27,33 C32,24 41,22 50,22 C59,22 68,24 73,33 C71,22 64,17 50,17 Z" fill="#FFEAA7"/>
-                            <path d="M26,50 C25,60 23,70 25,80 C26,70 28,60 27,50 Z" fill="#FFEAA7"/>
-                            <path d="M74,50 C75,60 77,70 75,80 C74,70 72,60 73,50 Z" fill="#FFEAA7"/>
                         </svg>
                     </div>
-                    <div class="main-sombrero" id="mainSombrero">🪅</div>
-                    <div class="tongue" id="tongue">👅</div>
-                    <div class="main-capy chill" id="mainCapy">🦫</div>
-                    <div class="dog" id="dog">
-                        🐕
-                        <span class="dog-tongue">👅</span>
-                    </div>
+                    <!-- Аксессуары -->
+                    <div class="accessory-layer acc-crown" id="accCrown">👑</div>
+                    <div class="accessory-layer acc-guitar" id="accGuitar">🎸</div>
+                    <div class="accessory-layer acc-glasses" id="accGlasses">🕶️</div>
+                    <div class="accessory-layer acc-gloves" id="accGloves"><span>🥊</span><span>🥊</span></div>
+                    <div class="accessory-layer acc-cucumber" id="accCucumber">🥒</div>
+                    <div class="accessory-layer acc-carrot" id="accCarrot">🥕</div>
+                    <div class="accessory-layer acc-lavash" id="accLavash">🥙</div>
+                    <div class="accessory-layer acc-meat" id="accMeat">🥩</div>
+                    <div class="accessory-layer acc-fish" id="accFish">🐟</div>
+                    <div class="accessory-layer acc-droplet" id="accDroplet1">💧</div>
+                    <div class="accessory-layer acc-droplet" id="accDroplet2" style="top:10px;left:-30px;animation-delay:0.7s;">💧</div>
+                    <div class="tongue-out" id="tongueOut">👅</div>
+                    <div class="main-capy-emoji chill" id="mainCapyEmoji">🦫</div>
+                    <div class="dog-sleep" id="dogSleep">🐕</div>
                 </div>
             </div>
-
-            <!-- Правая -->
             <div class="side-capy chill" id="sideCapyRight">
-                <div class="sombrero">🪅</div>
-                <div class="zzz">💤</div>
-                🦫
+                <div class="side-sombrero">🪅</div><div class="zzz">💤</div>🦫
             </div>
         </div>
-
-        <!-- Эквалайзер -->
+        <div class="yandex-frame-wrap" id="yandexFrameWrap"></div>
         <div class="equalizer visible" id="equalizer">
-            <div class="eq-bar"></div>
-            <div class="eq-bar"></div>
-            <div class="eq-bar"></div>
-            <div class="eq-bar"></div>
+            <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
         </div>
-
-        <!-- Инфо -->
-        <div class="track-info" id="trackInfo">
-            <div class="track-title">Добро пожаловать на CapyMusic Radio</div>
-            <div class="track-artist">Нажми ▶ чтобы начать</div>
+        <div class="track-info">
+            <div class="track-title" id="trackTitle">CapyMusic Radio</div>
+            <div class="track-artist" id="trackArtist">Нажми ▶</div>
             <div class="track-badge hidden" id="trackBadge"></div>
         </div>
-
-        <!-- Прогресс -->
-        <div class="progress-container" id="progressContainer">
+        <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
         </div>
         <div class="progress-time">
-            <span id="currentTime">0:00</span>
-            <span id="totalTime">0:00</span>
+            <span id="currentTime">0:00</span><span id="totalTime">~3:00</span>
         </div>
-
-        <!-- Кнопки -->
         <div class="controls">
-            <button class="btn" onclick="skipSong()" title="Пропустить">⏭</button>
+            <button class="btn" onclick="skipSong()">⏭</button>
             <button class="btn btn-play" id="btnPlay" onclick="toggleRadio()">▶</button>
-            <button class="btn" onclick="openInYandex()" title="Открыть в Яндекс Музыке">🔍</button>
+            <button class="btn" onclick="openInYandex()">🔍</button>
         </div>
     </div>
-
-    <audio id="audioPlayer" preload="none"></audio>
-
-    <!-- Звуки (генерируются программно) -->
     <script>
         // ==================== ПЛЕЙЛИСТ ====================
         const playlist = [
-            { title: "Macarena", artist: "Los del Río", vocals: "female", macarenaMode: true, url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=macarena", chorusStart: [18, 58, 98], chorusDuration: 16,
-                duration: 138 },
-            { title: "Dancing Queen", artist: "ABBA", vocals: "female", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=dancing+queen", chorusStart: [35, 95], chorusDuration: 18,
-                duration: 196 },
-            { title: "Bohemian Rhapsody", artist: "Queen", vocals: "male", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=bohemian+rhapsody", chorusStart: [120, 240],
-                chorusDuration: 25, duration: 355 },
-            { title: "Billie Jean", artist: "Michael Jackson", vocals: "male", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=billie+jean", chorusStart: [50, 130], chorusDuration: 20,
-                duration: 240 },
-            { title: "I Will Survive", artist: "Gloria Gaynor", vocals: "female", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=i+will+survive", chorusStart: [40, 110, 180],
-                chorusDuration: 20, duration: 230 },
-            { title: "Sweet Child O' Mine", artist: "Guns N' Roses", vocals: "male", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=sweet+child+o+mine", chorusStart: [60, 160],
-                chorusDuration: 22, duration: 295 },
-            { title: "Like a Prayer", artist: "Madonna", vocals: "female", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=like+a+prayer", chorusStart: [45, 130], chorusDuration: 22,
-                duration: 260 },
-            { title: "Hotel California", artist: "Eagles", vocals: "male", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=hotel+california", chorusStart: [80, 200], chorusDuration: 28,
-                duration: 310 },
-            { title: "Wannabe", artist: "Spice Girls", vocals: "female", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=wannabe+spice+girls", chorusStart: [25, 80, 140],
-                chorusDuration: 16, duration: 175 },
-            { title: "Smells Like Teen Spirit", artist: "Nirvana", vocals: "male", macarenaMode: false,
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
-                yandexUrl: "https://music.yandex.ru/search?text=smells+like+teen+spirit", chorusStart: [55, 160],
-                chorusDuration: 24, duration: 278 },
+            { id: "33524091", title: "Macarena", artist: "Los del Río",
+                mode: "macarena", duration: 230 },
+            { id: "609676", title: "Never Gonna Give You Up", artist: "Rick Astley",
+                mode: "rickroll", duration: 213 },
+            { id: "53404", title: "Bohemian Rhapsody", artist: "Queen",
+                mode: "queen", duration: 355 },
+            { id: "39484", title: "Fuel", artist: "Metallica",
+                mode: "rock", duration: 270 },
+            { id: "15362962", title: "Eye of the Tiger", artist: "Survivor",
+                mode: "boxer", duration: 240 },
+            { id: "52071184", title: "Worlds Colliding", artist: "Accept",
+                mode: "metal", duration: 280 },
+            { id: "146018229", title: "Around the World (Slowed+Reverb)", artist: "tontrader",
+                mode: "chill", duration: 200 },
+            { id: "141022013", title: "Рыбка", artist: "Ernest Merkel, BSWEEDY, VanDiBog",
+                mode: "water", duration: 180 },
+            { id: "139193622", title: "ПОЧЕМУ?", artist: "newhefner, aqumardn",
+                mode: "cucumber", duration: 160 },
+            { id: "141193965", title: "ЛАВАШ-ГОВЯДИНА", artist: "JorikRulit, YUNG FIMOZ",
+                mode: "lavash", duration: 170 }
         ];
-
-        // ==================== СОСТОЯНИЕ ====================
+        const SONGS_BEFORE_BREAK = 5;
+        const BREAK_DURATION = 28;
+        const BREAK_THOUGHTS = ['Ммм... арбуз...', 'Буль-буль...', 'Сейчас бы поплавать...', 'Zzz... ещё 5 минуточек...',
+            'Снится манго...', 'Тепло и влажно...', 'Огуречик...', 'Лаваш и говядина...'];
         let currentSongIndex = 0;
         let currentSong = playlist[0];
         let isPlaying = false;
         let isBreak = false;
-        let chorusActive = false;
         let songCounter = 0;
         let breakTimer = null;
         let progressInterval = null;
-        let chorusInterval = null;
         let breakSeconds = 0;
-        const BREAK_DURATION = 28; // секунд перерыва
-        const SONGS_BEFORE_BREAK = 5;
-        const BREAK_THOUGHTS = [
-            'Ммм... вкусный арбуз...',
-            'Буль-буль... водичка...',
-            'Сейчас бы поплавать...',
-            'Zzz... ещё 5 минуточек...',
-            'Снится манго...',
-            'Тепло и влажно...',
-        ];
-
-        // ==================== DOM ====================
-        const audioPlayer = document.getElementById('audioPlayer');
+        let simulatedTime = 0;
+        let totalSimulated = 200;
+        // DOM
         const btnPlay = document.getElementById('btnPlay');
-        const mainCapy = document.getElementById('mainCapy');
+        const mainCapyEmoji = document.getElementById('mainCapyEmoji');
         const sideCapyLeft = document.getElementById('sideCapyLeft');
         const sideCapyRight = document.getElementById('sideCapyRight');
-        const hairSvg = document.getElementById('hairSvg');
-        const mainSombrero = document.getElementById('mainSombrero');
-        const tongue = document.getElementById('tongue');
-        const dog = document.getElementById('dog');
+        const hairLayer = document.getElementById('hairLayer');
+        const sombreroLayer = document.getElementById('sombreroLayer');
+        const tongueOut = document.getElementById('tongueOut');
+        const dogSleep = document.getElementById('dogSleep');
         const thoughtBubble = document.getElementById('thoughtBubble');
-        const trackTitle = document.querySelector('.track-title');
-        const trackArtist = document.querySelector('.track-artist');
+        const trackTitle = document.getElementById('trackTitle');
+        const trackArtist = document.getElementById('trackArtist');
         const trackBadge = document.getElementById('trackBadge');
         const progressBar = document.getElementById('progressBar');
         const currentTimeEl = document.getElementById('currentTime');
         const totalTimeEl = document.getElementById('totalTime');
         const equalizer = document.getElementById('equalizer');
-        const waterOverlay = document.getElementById('waterOverlay');
         const songCountEl = document.getElementById('songCount');
-
-        // ==================== ЗВЁЗДЫ ====================
-        function createStars() {
-            const container = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                const size = Math.random() * 2.5 + 1;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
-                star.style.setProperty('--delay', (Math.random() * 6) + 's');
-                container.appendChild(star);
-            }
-        }
-
-        // ==================== ЗВУКИ (Web Audio API) ====================
-        let audioCtx = null;
-
-        function playBubbleSound() {
-            if (!audioCtx) audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(300 + Math.random() * 200, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.3);
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.35);
-        }
-
-        function playCapybaraChirp() {
-            if (!audioCtx) audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.08);
-            osc.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + 0.2);
-            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.25);
-        }
-
-        function playJungleAmbient() {
-            if (!audioCtx) audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-            // Простой шумовой фон (сверчки)
-            const bufferSize = audioCtx.sampleRate * 0.5;
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                data[i] = (Math.random() * 2 - 1) * 0.02;
-            }
-            const noise = audioCtx.createBufferSource();
-            noise.buffer = buffer;
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'bandpass';
-            filter.frequency.value = 4000;
-            filter.Q.value = 0.5;
-            const gain = audioCtx.createGain();
-            gain.gain.value = 0.03;
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-            noise.start();
-            noise.stop(audioCtx.currentTime + 0.5);
-        }
-
-        // ==================== РЕЖИМЫ ====================
-        function setChillMode() {
-            mainCapy.className = 'main-capy chill';
+        const yandexFrameWrap = document.getElementById('yandexFrameWrap');
+        const allAcc = ['accCrown', 'accGuitar', 'accGlasses', 'accGloves', 'accCucumber', 'accCarrot', 'accLavash',
+            'accMeat', 'accFish', 'accDroplet1', 'accDroplet2'
+        ];
+        // Звёзды
+        function createStars() { const c = document.getElementById('stars'); for (let i = 0; i < 100; i++) { const s =
+                document.createElement('div');
+            s.classList.add('star');
+            s.style.left = Math.random() * 100 + '%';
+            s.style.top = Math.random() * 100 + '%'; const sz = Math.random() * 2.5 + 1;
+            s.style.width = sz + 'px';
+            s.style.height = sz + 'px';
+            s.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+            s.style.setProperty('--delay', (Math.random() * 6) + 's');
+            c.appendChild(s); } }
+        // Сброс аксессуаров
+        function resetAccessories() { allAcc.forEach(id => { document.getElementById(id).classList.remove('visible'); }); }
+        // Режимы
+        function setChill() { mainCapyEmoji.className = 'main-capy-emoji chill';
             sideCapyLeft.className = 'side-capy chill';
             sideCapyRight.className = 'side-capy chill';
-            tongue.classList.remove('visible');
-            dog.classList.remove('visible');
+            tongueOut.classList.remove('visible');
+            dogSleep.classList.remove('visible');
             thoughtBubble.classList.remove('visible');
-            waterOverlay.classList.remove('visible');
             equalizer.classList.add('visible');
             progressBar.classList.remove('break-bar');
-            btnPlay.classList.remove('break-mode');
-        }
+            btnPlay.classList.remove('break-mode'); }
 
-        function setDanceMode() {
-            mainCapy.className = 'main-capy dance';
+        function setDance() { mainCapyEmoji.className = 'main-capy-emoji dance';
             sideCapyLeft.className = 'side-capy dance';
-            sideCapyRight.className = 'side-capy dance';
-            tongue.classList.remove('visible');
-            dog.classList.remove('visible');
-            thoughtBubble.classList.remove('visible');
-            waterOverlay.classList.remove('visible');
-            equalizer.classList.add('visible');
-            progressBar.classList.remove('break-bar');
-            btnPlay.classList.remove('break-mode');
-        }
+            sideCapyRight.className = 'side-capy dance'; }
 
-        function setBreakMode() {
-            mainCapy.className = 'main-capy sleep';
+        function setSleep() { mainCapyEmoji.className = 'main-capy-emoji sleep';
             sideCapyLeft.className = 'side-capy sleep';
             sideCapyRight.className = 'side-capy sleep';
-            tongue.classList.add('visible');
-            dog.classList.add('visible');
+            tongueOut.classList.add('visible');
+            dogSleep.classList.add('visible');
             thoughtBubble.classList.add('visible');
-            waterOverlay.classList.add('visible');
             equalizer.classList.remove('visible');
             progressBar.classList.add('break-bar');
             btnPlay.classList.add('break-mode');
-            mainSombrero.classList.remove('visible');
+            sombreroLayer.classList.remove('visible');
             sideCapyLeft.classList.remove('show-sombrero');
             sideCapyRight.classList.remove('show-sombrero');
-            thoughtBubble.textContent = BREAK_THOUGHTS[Math.floor(Math.random() * BREAK_THOUGHTS.length)];
-        }
-
-        // ==================== ОБНОВЛЕНИЕ UI ====================
-        function updateUI() {
-            currentSong = playlist[currentSongIndex];
+            resetAccessories();
+            hairLayer.classList.remove('visible');
+            thoughtBubble.textContent = BREAK_THOUGHTS[Math.floor(Math.random() * BREAK_THOUGHTS.length)]; }
+        // UI
+        function updateUI() { currentSong = playlist[currentSongIndex];
             trackTitle.textContent = currentSong.title;
             trackArtist.textContent = currentSong.artist;
-            trackBadge.classList.remove('hidden', 'badge-female', 'badge-male', 'badge-macarena', 'badge-break');
-
-            if (currentSong.macarenaMode) {
-                trackBadge.textContent = '🪅 MACARENA';
-                trackBadge.classList.add('badge-macarena');
-            } else if (currentSong.vocals === 'female') {
-                trackBadge.textContent = '🎤 Женский вокал';
-                trackBadge.classList.add('badge-female');
-            } else {
-                trackBadge.textContent = '🎤 Мужской вокал';
-                trackBadge.classList.add('badge-male');
-            }
-
-            if (currentSong.vocals === 'female') {
-                hairSvg.classList.add('visible');
-            } else {
-                hairSvg.classList.remove('visible');
-            }
-
-            if (currentSong.macarenaMode) {
-                mainSombrero.classList.add('visible');
-                sideCapyLeft.classList.add('show-sombrero');
-                sideCapyRight.classList.add('show-sombrero');
-            } else {
-                mainSombrero.classList.remove('visible');
-                sideCapyLeft.classList.remove('show-sombrero');
-                sideCapyRight.classList.remove('show-sombrero');
-            }
-
-            totalTimeEl.textContent = formatTime(currentSong.duration || 0);
-            currentTimeEl.textContent = '0:00';
-            progressBar.style.width = '0%';
-            songCountEl.textContent = songCounter;
-        }
-
-        // ==================== ПРОГРЕСС ====================
-        function startProgressTracking() {
-            clearInterval(progressInterval);
-            progressInterval = setInterval(() => {
-                if (isBreak) {
-                    breakSeconds++;
-                    const pct = (breakSeconds / BREAK_DURATION) * 100;
-                    progressBar.style.width = pct + '%';
-                    currentTimeEl.textContent = formatTime(breakSeconds);
-                    totalTimeEl.textContent = formatTime(BREAK_DURATION);
-                } else if (isPlaying && audioPlayer.duration) {
-                    const pct = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-                    progressBar.style.width = pct + '%';
-                    currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
-                    totalTimeEl.textContent = formatTime(audioPlayer.duration || currentSong.duration);
-                }
-            }, 400);
-        }
-
-        function formatTime(seconds) {
-            if (!seconds || isNaN(seconds)) return '0:00';
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60);
-            return min + ':' + (sec < 10 ? '0' : '') + sec;
-        }
-
-        // ==================== ПРИПЕВЫ ====================
-        function startChorusDetection() {
-            clearInterval(chorusInterval);
-            chorusInterval = setInterval(() => {
-                if (!isPlaying || isBreak) return;
-                const t = audioPlayer.currentTime;
-                let inChorus = false;
-                if (currentSong.chorusStart) {
-                    inChorus = currentSong.chorusStart.some(s => t >= s && t <= s + currentSong
-                        .chorusDuration);
-                }
-                if (inChorus && !chorusActive) {
-                    chorusActive = true;
-                    setDanceMode();
-                } else if (!inChorus && chorusActive) {
-                    chorusActive = false;
-                    setChillMode();
-                }
-            }, 150);
-        }
-
-        // ==================== ПЕРЕРЫВ ====================
-        function startBreak() {
-            isBreak = true;
-            breakSeconds = 0;
-            audioPlayer.pause();
-            isPlaying = false;
-            chorusActive = false;
-            setBreakMode();
-            trackTitle.textContent = 'Перерыв';
-            trackArtist.textContent = 'Капибары отдыхают';
-            trackBadge.classList.remove('hidden', 'badge-female', 'badge-male', 'badge-macarena');
-            trackBadge.textContent = '💤 Chill Time';
-            trackBadge.classList.add('badge-break');
-            progressBar.style.width = '0%';
-            currentTimeEl.textContent = '0:00';
-            totalTimeEl.textContent = formatTime(BREAK_DURATION);
-            btnPlay.textContent = '⏸';
-            songCounter = 0;
-            songCountEl.textContent = '0';
-            hairSvg.classList.remove('visible');
-            mainSombrero.classList.remove('visible');
+            trackBadge.classList.remove('hidden');
+            trackBadge.className = 'track-badge';
+            resetAccessories();
+            hairLayer.classList.remove('visible');
+            sombreroLayer.classList.remove('visible');
             sideCapyLeft.classList.remove('show-sombrero');
             sideCapyRight.classList.remove('show-sombrero');
+            totalSimulated = currentSong.duration || 200;
+            simulatedTime = 0;
+            totalTimeEl.textContent = formatTime(totalSimulated);
+            currentTimeEl.textContent = '0:00';
+            progressBar.style.width = '0%';
+            songCountEl.textContent = songCounter;
+            switch (currentSong.mode) {
+                case 'macarena':
+                    trackBadge.textContent = '🪅 MACARENA';
+                    trackBadge.classList.add('badge-macarena');
+                    sombreroLayer.classList.add('visible');
+                    sideCapyLeft.classList.add('show-sombrero');
+                    sideCapyRight.classList.add('show-sombrero');
+                    break;
+                case 'rickroll':
+                    trackBadge.textContent = '🕺 RICKROLL!';
+                    trackBadge.classList.add('badge-rickroll');
+                    document.getElementById('accGlasses').classList.add('visible');
+                    break;
+                case 'queen':
+                    trackBadge.textContent = '👑 QUEEN';
+                    trackBadge.classList.add('badge-queen');
+                    document.getElementById('accCrown').classList.add('visible');
+                    break;
+                case 'rock':
+                    trackBadge.textContent = '🎸 ROCK';
+                    trackBadge.classList.add('badge-rock');
+                    document.getElementById('accGuitar').classList.add('visible');
+                    document.getElementById('accGlasses').classList.add('visible');
+                    break;
+                case 'boxer':
+                    trackBadge.textContent = '🥊 BOXER';
+                    trackBadge.classList.add('badge-boxer');
+                    document.getElementById('accGloves').classList.add('visible');
+                    break;
+                case 'metal':
+                    trackBadge.textContent = '🤘 METAL';
+                    trackBadge.classList.add('badge-metal');
+                    document.getElementById('accGuitar').classList.add('visible');
+                    break;
+                case 'chill':
+                    trackBadge.textContent = '🌀 CHILL';
+                    trackBadge.classList.add('badge-chill');
+                    break;
+                case 'water':
+                    trackBadge.textContent = '🐟 РЫБКА';
+                    trackBadge.classList.add('badge-water');
+                    document.getElementById('accFish').classList.add('visible');
+                    document.getElementById('accDroplet1').classList.add('visible');
+                    document.getElementById('accDroplet2').classList.add('visible');
+                    break;
+                case 'cucumber':
+                    trackBadge.textContent = '🥒 ОГУРЕЧИК';
+                    trackBadge.classList.add('badge-cucumber');
+                    document.getElementById('accCucumber').classList.add('visible');
+                    document.getElementById('accCarrot').classList.add('visible');
+                    break;
+                case 'lavash':
+                    trackBadge.textContent = '🥙 ЛАВАШ-ГОВЯДИНА';
+                    trackBadge.classList.add('badge-lavash');
+                    document.getElementById('accLavash').classList.add('visible');
+                    document.getElementById('accMeat').classList.add('visible');
+                    break;
+            }
+            loadYandexTrack(currentSong.id); }
 
-            // Звуки перерыва
-            playJungleAmbient();
-            setTimeout(() => playBubbleSound(), 2000);
-            setTimeout(() => playCapybaraChirp(), 5000);
-            setTimeout(() => playBubbleSound(), 9000);
-            setTimeout(() => playCapybaraChirp(), 13000);
-            setTimeout(() => playBubbleSound(), 17000);
-            setTimeout(() => playJungleAmbient(), 20000);
-            setTimeout(() => playBubbleSound(), 23000);
-        }
+        function loadYandexTrack(trackId) { yandexFrameWrap.innerHTML =
+                `<iframe src="https://music.yandex.ru/iframe/track/${trackId}" width="1" height="1" frameborder="0" allow="autoplay"></iframe>`; }
+        // Прогресс
+        function startProgressTracking() { clearInterval(progressInterval);
+            progressInterval = setInterval(() => { if (isBreak) { breakSeconds++; const pct = (breakSeconds / BREAK_DURATION) *
+                        100;
+                    progressBar.style.width = pct + '%';
+                    currentTimeEl.textContent = formatTime(breakSeconds);
+                    totalTimeEl.textContent = formatTime(BREAK_DURATION); } else if (isPlaying) { simulatedTime++; if (
+                        simulatedTime >= totalSimulated) { simulatedTime = totalSimulated;
+                        nextSong(); return; } const pct = (simulatedTime / totalSimulated) * 100;
+                    progressBar.style.width = pct + '%';
+                    currentTimeEl.textContent = formatTime(simulatedTime);
+                    totalTimeEl.textContent = formatTime(totalSimulated); const phase = simulatedTime / totalSimulated; const
+                        inChorus = (phase > 0.25 && phase < 0.5) || (phase > 0.65 && phase < 0.85); if (inChorus && mainCapyEmoji
+                        .classList.contains('chill')) { setDance(); } else if (!inChorus && mainCapyEmoji.classList.contains(
+                            'dance')) { setChill(); } } }, 1000); }
 
-        function endBreak() {
-            isBreak = false;
-            clearTimeout(breakTimer);
-            setChillMode();
-            trackBadge.classList.remove('badge-break');
+        function formatTime(s) { if (!s || isNaN(s)) return '0:00'; const m = Math.floor(s / 60); const sec = Math.floor(s %
+                60); return m + ':' + (sec < 10 ? '0' : '') + sec; }
+        // Перерыв
+        function startBreak() { isBreak = true;
+            breakSeconds = 0;
+            isPlaying = false;
+            setSleep();
+            trackTitle.textContent = 'Перерыв';
+            trackArtist.textContent = 'Капибары отдыхают';
+            trackBadge.className = 'track-badge badge-break';
+            trackBadge.textContent = '💤 Chill';
+            progressBar.style.width = '0%';
             songCounter = 0;
             songCountEl.textContent = '0';
+            btnPlay.textContent = '⏸'; }
+
+        function endBreak() { isBreak = false;
+            songCounter = 0;
+            songCountEl.textContent = '0';
+            setChill();
+            trackBadge.className = 'track-badge hidden';
             updateUI();
-            playCurrentSong();
-        }
+            startPlayback(); }
+        // Воспроизведение
+        function startPlayback() { isPlaying = true;
+            isBreak = false;
+            btnPlay.textContent = '⏸';
+            simulatedTime = 0;
+            setChill();
+            startProgressTracking();
+            loadYandexTrack(currentSong.id); }
 
-        // ==================== ВОСПРОИЗВЕДЕНИЕ ====================
-        function playCurrentSong() {
-            audioPlayer.src = currentSong.url;
-            audioPlayer.load();
-            audioPlayer.play().then(() => {
-                isPlaying = true;
-                isBreak = false;
-                btnPlay.textContent = '⏸';
-                setChillMode();
-                startChorusDetection();
-                startProgressTracking();
-            }).catch(() => {
-                setTimeout(() => nextSong(), 800);
-            });
-        }
-
-        function toggleRadio() {
-            if (isBreak) {
-                // Во время перерыва — скипаем перерыв
-                clearTimeout(breakTimer);
-                endBreak();
-                return;
-            }
-            if (isPlaying) {
-                audioPlayer.pause();
-                isPlaying = false;
+        function toggleRadio() { if (isBreak) { clearTimeout(breakTimer);
+                endBreak(); return; } if (isPlaying) { isPlaying = false;
                 btnPlay.textContent = '▶';
-                clearInterval(progressInterval);
-            } else {
-                if (!audioPlayer.src || audioPlayer.src !== currentSong.url) {
-                    playCurrentSong();
-                } else {
-                    audioPlayer.play().then(() => {
-                        isPlaying = true;
-                        btnPlay.textContent = '⏸';
-                        startProgressTracking();
-                        startChorusDetection();
-                    });
-                }
-            }
-        }
+                clearInterval(progressInterval); } else { startPlayback(); } }
 
-        function nextSong() {
-            songCounter++;
-            songCountEl.textContent = songCounter;
-
-            if (songCounter >= SONGS_BEFORE_BREAK) {
-                startBreak();
-                breakTimer = setTimeout(() => {
-                    currentSongIndex = (currentSongIndex + 1) % playlist.length;
-                    endBreak();
-                }, BREAK_DURATION * 1000);
-                return;
-            }
-
+        function nextSong() { songCounter++;
+            songCountEl.textContent = songCounter; if (songCounter >= SONGS_BEFORE_BREAK) { startBreak();
+                breakTimer = setTimeout(() => { currentSongIndex = (currentSongIndex + 1) % playlist.length;
+                    endBreak(); }, BREAK_DURATION * 1000); return; }
             currentSongIndex = (currentSongIndex + 1) % playlist.length;
-            chorusActive = false;
-            updateUI();
-            if (isPlaying || btnPlay.textContent === '⏸') {
-                playCurrentSong();
-            }
-        }
+            updateUI(); if (isPlaying) startPlayback(); }
 
-        function skipSong() {
-            if (isBreak) {
-                clearTimeout(breakTimer);
+        function skipSong() { if (isBreak) { clearTimeout(breakTimer);
                 currentSongIndex = (currentSongIndex + 1) % playlist.length;
-                endBreak();
-                return;
-            }
-            audioPlayer.pause();
-            clearInterval(progressInterval);
-            nextSong();
-        }
+                endBreak(); return; }
+            nextSong(); }
 
-        function openInYandex() {
-            if (!isBreak) window.open(currentSong.yandexUrl, '_blank');
-        }
-
-        // Когда трек закончился
-        audioPlayer.addEventListener('ended', () => {
-            nextSong();
-        });
-
-        audioPlayer.addEventListener('loadedmetadata', () => {
-            if (!isBreak) totalTimeEl.textContent = formatTime(audioPlayer.duration || currentSong.duration);
-        });
-
-        // Клик по прогресс-бару
-        document.getElementById('progressContainer').addEventListener('click', function(e) {
-            if (isBreak || !audioPlayer.duration) return;
-            const rect = this.getBoundingClientRect();
-            const pct = (e.clientX - rect.left) / rect.width;
-            audioPlayer.currentTime = pct * audioPlayer.duration;
-        });
-
-        // ==================== ИНИЦИАЛИЗАЦИЯ ====================
+        function openInYandex() { if (!isBreak) window.open('https://music.yandex.ru/track/' + currentSong.id,
+            '_blank'); }
         createStars();
-        setChillMode();
+        setChill();
         updateUI();
         songCountEl.textContent = '0';
-
         console.log('🦫 CapyMusic Radio готов!');
-        console.log('📻 by Capybara Inc.');
-        console.log('💤 Перерыв каждые', SONGS_BEFORE_BREAK, 'песен');
-        console.log('🐕 Собака спит рядом в перерыве');
+        console.log('🎵 10 треков загружено');
+        console.log('🪅 Macarena | 🕺 Rickroll | 👑 Queen | 🎸 Metallica | 🥊 Eye of the Tiger');
+        console.log('🤘 Accept | 🌀 tontrader | 🐟 Рыбка | 🥒 Огуречик | 🥙 Лаваш-Говядина');
+        console.log('💤 Перерыв каждые 5 песен');
+        console.log('by Capybara Inc.');
     </script>
 </body>
-</html>
+    </html>
